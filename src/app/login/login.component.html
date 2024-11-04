@@ -1,0 +1,15 @@
+<div class="py-6 mt-10 mx-4">
+    <h1 class="text-2xl font-medium font-serif">Freed</h1>
+    <form (ngSubmit)="login()" class="mt-10">
+        <div class="mb-4">
+            <label for="name" class="text-2xl font-medium font-serif">Username</label>
+            <input type="text" [(ngModel)]="data.name" id="name" name="name" class="ml-6 outline outline-1 text-2xl font-medium font-serif" placeholder="your name" required />
+        </div>
+        <div class="mb-4">
+            <label for="password" class="text-2xl font-medium font-serif">Password</label>
+            <input type="password" [(ngModel)]="data.password" id="password" name="password" class="ml-7 outline outline-1 text-2xl font-medium font-serif" placeholder="your password" required />
+        </div>
+        <button type="submit" class="mt-5 w-32 py-2 font-bold text-white bg-blue-500">Login</button>
+    </form>
+</div>    
+
