@@ -1,0 +1,371 @@
+openapi: '3.0.3'
+info:
+  title: FreedChat
+  description: API Documentation for FreedChat
+  version: '1.0'
+servers:
+  - url: https://localhost:8080/api
+paths:
+  /login:
+    post:
+      tags:
+        - User
+      description: Login user account
+      summary: Login user account
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+
+      responses:
+        '200':
+          description: Success to login a account
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+
+  /register:
+    post:
+      tags:
+        - User
+      description: Register user account
+      summary: Register user account
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+
+      responses:
+        '200':
+          description: Success to login a account
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+  
+  /user:
+    get:
+      tags:
+        - User
+      description: Get all user account to show it in homepage
+      summary: Get all user account to show it in homepage
+
+      responses:
+        '200':
+          description: Success to get all user account data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      username:
+                        type: string
+                      profile_picture:
+                        type: string
+                      created_at:
+                        type: string
+                      updated_at:
+                        type: string
+  
+  /user/view/{user_uuid}:
+    get:
+      tags:
+        - User
+      description: Get user account data by user_uuid to view in detail profile page
+      summary: Get user account data by user_uuid to view in detail profile page
+
+      parameters:
+        - name: user_uuid
+          in: path
+          description: You need to add parameter to the url to be able to get 
+          required: true
+          schema:
+            type: string
+
+
+      responses:
+        '200':
+          description: Success to get user account data by user_uuid 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      username:
+                        type: string
+                      password:
+                        type: string
+                      profile_picture:
+                        type: string
+                      created_at:
+                        type: string
+                      updated_at:
+                        type: string
+
+  /user/verifytoken/{token}:
+    get:
+        tags:
+          - User
+        description: Get user account data by own token and then retrieve the user_uuid from payload and then send own data based on user_uuid
+        summary: Get user account data by own token and to view own data in detail profile page
+
+        parameters:
+          - name: token
+            in: path
+            description: You need to add parameter to the url to be able to get
+            required: true
+            schema:
+              type: string
+
+
+        responses:
+          '200':
+            description: Success to get own data
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    code:
+                      type: number
+                    status:
+                      type: string
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        username:
+                          type: string
+                        password:
+                          type: string
+                        profile_picture:
+                          type: string
+                        created_at:
+                          type: string
+                        updated_at:
+                          type: string
+
+  /user/{user_uuid}:
+    delete:
+      tags:
+        - User
+      description: Delete user account data by user_uuid to delete own account in detail profile page
+      summary: Delete user account data by user_uuid to delete own account in detail profile page
+
+      parameters:
+        - name: user_uuid
+          in: path
+          description: You need to add parameter to the url to be able to delete
+          required: true
+          schema:
+            type: string
+
+
+      responses:
+        '200':
+          description: Success to delete user account by user_uuid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+    
+    put:
+      tags:
+        - User
+      description: Update user account data by user_uuid to update own data in detail profile page
+      summary: Update user account data by user_uuid to update own data in detail profile page
+
+      parameters:
+        - name: user_uuid
+          in: path
+          description: You need to add parameter to the url to be able to update
+          required: true
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                profile_picture:
+                  type: string
+
+      responses:
+        '200':
+          description: Success to update user account data by user_uuid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+
+
+  /chat/{sender_uuid}/{receiver_uuid}:
+    get:
+      tags:
+        - Chat
+      description: Get list of previous chat message 
+      summary: Get list of previous chat message
+
+      parameters:
+        - name: sender_uuid
+          in: path
+          description: You need to add parameter to the url to be able to get 
+          required: true
+          schema:
+            type: string
+
+        - name: receiver_uuid
+          in: path
+          description: You need to add parameter to the url to be able to get 
+          required: true
+          schema:
+            type: string
+        
+      responses:
+        '200':
+          description: Success to get list of previous chat message 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      sender_name:
+                        type: string
+                      receiver_name:
+                        type: string
+                      sender_profile_picture:
+                        type: string
+                      receiver_profile_picture:
+                        type: string
+                      created_at:
+                        type: string
+
+    post:
+      tags:
+        - Chat
+      description: Post a message  
+      summary: Post a message
+
+      parameters:
+        - name: sender_uuid
+          in: path
+          description: You need to add parameter to the url to be able to post 
+          required: true
+          schema:
+            type: string
+
+        - name: receiver_uuid
+          in: path
+          description: You need to add parameter to the url to be able to post 
+          required: true
+          schema:
+            type: string
+      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sender_id:
+                  type: string
+                receiver_id:
+                  type: string
+                message:
+                  type: string
+
+      responses:
+        '200':
+          description: Success to post a message 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
